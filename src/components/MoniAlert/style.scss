@@ -1,0 +1,90 @@
+.moni-alert {
+  --moni-alert-font-color: var(--moni-text-color-primary);
+  --moni-alert-border-color: var(--moni-border-color-light);
+  --moni-alert-bg-color: transparent;
+
+  will-change: height;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--moni-alert-border-color);
+  border-radius: var(--moni-border-radius-base);
+  background-color: var(--moni-alert-bg-color);
+  color: var(--moni-alert-font-color);
+  font-size: var(--moni-font-size-base);
+  font-weight: var(--moni-font-weight-primary);
+  cursor: default;
+  overflow: hidden;
+  font-family: var(--moni-font-family);
+
+  & + & {
+    margin-top: 10px;
+  }
+
+  .moni-alert__prefix {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+
+    &.big {
+      font-size: 24px;
+    }
+  }
+
+  .moni-alert__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &.has-description {
+      gap: 5px;
+      flex: auto;
+    }
+
+    .moni-alert__title {
+      margin: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .moni-alert_description {
+      margin: 0;
+      font-size: var(--moni-font-size-extra-small);
+    }
+  }
+
+  .moni-alert__close {
+    cursor: pointer;
+  }
+}
+
+.moni-alert--close-enter-from, .moni-alert--close-leave-to {
+  opacity: 0;
+}
+
+.moni-alert--close-enter-active, .moni-alert--close-leave-active {
+  transition: opacity var(--moni-transition-duration) ease-in-out;
+}
+
+.moni-alert--close-enter-to {
+  opacity: 1;
+}
+
+
+@each $type in 'success' , 'warning' , 'danger' , 'info' {
+  .moni-alert--#{$type} {
+    &.light {
+      --moni-alert-font-color: var(--moni-color-#{$type}-dark-2);
+      --moni-alert-bg-color: var(--moni-color-#{$type}-light-9);
+    }
+    &.dark {
+      --moni-alert-font-color: var(--moni-color-white);
+      --moni-alert-bg-color: var(--moni-color-#{$type}-light-1);
+    }
+  }
+}

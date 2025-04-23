@@ -1,0 +1,21 @@
+body {
+  font-family: var(--moni-font-family);
+  font-weight: 400;
+  font-size: var(--moni-font-size-base);
+  color: var(--moni-text-color-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+a {
+  color: var(--moni-color-primary);
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    color: var(--moni-color-primary-light-3);
+  }
+  &:active {
+    color: var(--moni-color-primary-dark-2);
+  }
+}

@@ -1,0 +1,122 @@
+.moni-button {
+  /* text */
+  --moni-button-text-color: var(--moni-text-color-regular);
+  --moni-button-font-weight: var(--moni-font-weight-primary);
+  /* border */
+  --moni-button-border-color: var(--moni-border-color);
+  /* background*/
+  --moni-button-bg-color: var(--moni-fill-color-blank);
+
+  display: inline-flex;
+  justify-content: center;
+  gap: 2px;
+  line-height: 1;
+  height: 32px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--moni-button-text-color);
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.1s;
+  font-weight: var(--moni-button-font-weight);
+  user-select: none;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  background-color: var(--moni-button-bg-color);
+  border: var(--moni-border);
+  border-color: var(--moni-button-border-color);
+  font-size: var(--moni-font-size-base);
+  border-radius: var(--moni-border-radius-base);
+
+  &>span {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  &.rounded {
+    padding: 8px;
+    border-radius: var(--moni-border-radius-round);
+  }
+
+  &.circle {
+    padding: 8px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    --moni-button-text-color: var(--moni-color-primary);
+    --moni-button-border-color: var(--moni-color-primary-light-5);
+    --moni-button-bg-color: var(--moni-color-primary-light-9);
+  }
+
+  &:active {
+    --moni-button-border-color: var(--moni-color-primary-light-1);
+  }
+
+  &.disabled,
+  &[disabled] {
+    cursor: not-allowed;
+    --moni-button-text-color: var(--moni-disabled-text-color);
+    --moni-button-border-color: var(--moni-border-color);
+    --moni-button-bg-color: transparent;
+  }
+
+  &.plain {
+    --moni-button-bg-color: transparent;
+  }
+
+  & + & {
+    margin-left: 12px;
+  }
+}
+
+@each $type in primary, success, warning, info, danger {
+  .moni-button--#{$type} {
+    /* text */
+    --moni-button-text-color: var(--moni-color-white);
+    --moni-button-font-weight: var(--moni-font-weight-primary);
+    /* border */
+    --moni-button-border-color: var(--moni-color-#{$type});
+    /* background*/
+    --moni-button-bg-color: var(--moni-color-#{$type});
+
+    &:hover {
+      --moni-button-text-color: var(--moni-color-white);
+      --moni-button-border-color: var(--moni-color-#{$type}-light-2);
+      --moni-button-bg-color: var(--moni-color-#{$type}-light-2);
+    }
+
+    &:active {
+      --moni-button-border-color: var(--moni-color-#{$type}-dark-1);
+      --moni-button-bg-color: var(--moni-color-#{$type}-dark-1);
+    }
+
+    &.disabled,
+    &[disabled] {
+      --moni-button-text-color: var(--moni-color-white);
+      --moni-button-bg-color: var(--moni-color-#{$type}-light-5);
+      --moni-button-border-color: var(--moni-color-#{$type}-light-5);
+    }
+
+    &.plain {
+      --moni-button-text-color: var(--moni-color-#{$type});
+      --moni-button-bg-color: var(--moni-color-#{$type}-light-9);
+
+      &:hover {
+        --moni-button-text-color: var(--moni-color-white);
+        --moni-button-bg-color: var(--moni-color-#{$type});
+      }
+
+      &:active {
+        --moni-button-bg-color: var(--moni-color-#{$type}-dark-1);
+      }
+
+      &.disabled,
+      &[disabled] {
+        --moni-button-text-color: var(--moni-color-#{$type}-light-4);
+        --moni-button-bg-color: var(--moni-color-#{$type}-light-9);
+      }
+    }
+  }
+}

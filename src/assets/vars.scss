@@ -1,0 +1,66 @@
+@mixin generate-series-color($type, $color) {
+  --moni-color-#{$type}: #{$color};
+  @for $index from 1 through 9 {
+    --moni-color-#{$type}-light-#{$index}: color-mix(in srgb, var(--moni-color-white) #{$index}0%, #{$color});
+    --moni-color-#{$type}-dark-#{$index}: color-mix(in srgb, var(--moni-color-black) #{$index}0%, #{$color});
+  }
+}
+
+:root {
+  --moni-color-white: #ffffff;
+  --moni-color-black: #000000;
+  /* series colors */
+  @include generate-series-color(primary, #409eff);
+  @include generate-series-color(success, #67c23a);
+  @include generate-series-color(warning, #e6a23c);
+  @include generate-series-color(danger, #f56c6c);
+  @include generate-series-color(info, #909399);
+
+  --moni-bg-color: #ffffff;
+  --moni-bg-color-page: #f2f3f5;
+  --moni-bg-color-overlay: #ffffff;
+  --moni-text-color-primary: #303133;
+  --moni-text-color-regular: #606266;
+  --moni-text-color-secondary: #909399;
+  --moni-text-color-placeholder: #a8abb2;
+  --moni-text-color-disabled: #c0c4cc;
+  --moni-border-color: #dcdfe6;
+  --moni-border-color-light: #e4e7ed;
+  --moni-border-color-lighter: #ebeef5;
+  --moni-border-color-extra-light: #f2f6fc;
+  --moni-border-color-dark: #d4d7de;
+  --moni-border-color-darker: #cdd0d6;
+  --moni-fill-color: #f0f2f5;
+  --moni-fill-color-light: #f5f7fa;
+  --moni-fill-color-lighter: #fafafa;
+  --moni-fill-color-extra-light: #fafcff;
+  --moni-fill-color-dark: #ebedf0;
+  --moni-fill-color-darker: #e6e8eb;
+  --moni-fill-color-blank: #ffffff;
+  /* border */
+  --moni-border-width: 1px;
+  --moni-border-style: solid;
+  --moni-border-color-hover: var(--moni-text-color-disabled);
+  --moni-border: var(--moni-border-width) var(--moni-border-style) var(--moni-border-color);
+  --moni-border-radius-base: 4px;
+  --moni-border-radius-small: 2px;
+  --moni-border-radius-round: 20px;
+  --moni-border-radius-circle: 100%;
+  /* font */
+  --moni-font-size-extra-large: 20px;
+  --moni-font-size-large: 18px;
+  --moni-font-size-medium: 16px;
+  --moni-font-size-base: 14px;
+  --moni-font-size-small: 13px;
+  --moni-font-size-extra-small: 12px;
+  --moni-font-family:
+    'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial,
+    sans-serif;
+  --moni-font-weight-primary: 500;
+  /* disabled */
+  --moni-disabled-bg-color: var(--moni-fill-color-light);
+  --moni-disabled-text-color: var(--moni-text-color-placeholder);
+  --moni-disabled-border-color: var(--moni-border-color-light);
+  /* others */
+  --moni-transition-duration: 300ms;
+}

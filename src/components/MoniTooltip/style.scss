@@ -1,0 +1,44 @@
+.moni-tooltip {
+  --moni-tooltip-bg-color: var(--moni-bg-color-overlay);
+  --moni-tooltip-font-size: var(--moni-font-size-base);
+  --moni-tooltip-border-color: var(--moni-border-color);
+  --moni-tooltip-padding: 12px;
+  --moni-tooltip-border-radius: var(--moni-border-radius-base);
+  --moni-tooltip-z-index: 1000;
+
+  position: relative;
+  display: inline-block;
+
+  .moni-tooltip__popper {
+    padding: var(--moni-tooltip-padding);
+    box-sizing: border-box;
+    display: inline-block;
+    width: max-content;
+    color: var(--moni-text-color-primary);
+    font-size: var(--moni-tooltip-font-size);
+    line-height: 1.4;
+    text-align: justify;
+    border: 1px solid var(--moni-tooltip-border-color);
+    border-radius: var(--moni-tooltip-border-radius);
+    background-color: var(--moni-tooltip-background-color);
+    z-index: var(--moni-tooltip-z-index);
+  }
+
+  //.moni-tooltip__popper-arrow, .moni-tooltip__popper-arrow::before {
+  //  position: absolute;
+  //  width: 8px;
+  //  height: 8px;
+  //  box-sizing: border-box;
+  //  background-color: red;
+  //}
+}
+
+.moni-tooltip--transition-enter-from, .moni-tooltip--transition-leave-to {
+  opacity: 0;
+}
+.moni-tooltip--transition-enter-active, .moni-tooltip--transition-leave-active {
+  transition: opacity var(--moni-transition-duration) ease-in-out;
+}
+.moni-tooltip--transition-enter-to {
+  opacity: 1;
+}
