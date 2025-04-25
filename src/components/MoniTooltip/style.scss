@@ -5,11 +5,17 @@
   --moni-tooltip-padding: 12px;
   --moni-tooltip-border-radius: var(--moni-border-radius-base);
   --moni-tooltip-z-index: 1000;
+  --moni-tooltip-arrow-width: 8px;
 
   position: relative;
   display: inline-block;
 
+  .moni-tooltip__popper__wrapper {
+    position: relative;
+  }
+
   .moni-tooltip__popper {
+    position: relative;
     padding: var(--moni-tooltip-padding);
     box-sizing: border-box;
     display: inline-block;
@@ -20,17 +26,46 @@
     text-align: justify;
     border: 1px solid var(--moni-tooltip-border-color);
     border-radius: var(--moni-tooltip-border-radius);
-    background-color: var(--moni-tooltip-background-color);
+    background-color: var(--moni-tooltip-bg-color);
     z-index: var(--moni-tooltip-z-index);
   }
+  .moni-tooltip__popper-arrow {
+    position: absolute;
+    visibility: hidden;
 
-  //.moni-tooltip__popper-arrow, .moni-tooltip__popper-arrow::before {
-  //  position: absolute;
-  //  width: 8px;
-  //  height: 8px;
-  //  box-sizing: border-box;
-  //  background-color: red;
-  //}
+    &:before {
+      position: absolute;
+      visibility: visible;
+      content: '';
+      display: inline-block;
+      width: var(--moni-tooltip-arrow-width);
+      height: var(--moni-tooltip-arrow-width);
+      box-sizing: border-box;
+      background-color: var(--moni-tooltip-bg-color);
+      transform: rotateZ(45deg);
+    }
+
+    &[data-popper-placement^='top']:before {
+      border-bottom: 1px solid var(--moni-tooltip-border-color);
+      border-right: 1px solid var(--moni-tooltip-border-color);
+      top: calc(var(--moni-tooltip-arrow-width) / 2);
+    }
+    &[data-popper-placement^='bottom']:before {
+      border-top: 1px solid var(--moni-tooltip-border-color);
+      border-left: 1px solid var(--moni-tooltip-border-color);
+      top: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
+    }
+    &[data-popper-placement^='left']:before {
+      border-top: 1px solid var(--moni-tooltip-border-color);
+      border-right: 1px solid var(--moni-tooltip-border-color);
+      left: calc(var(--moni-tooltip-arrow-width) / 2);
+    }
+    &[data-popper-placement^='right']:before {
+      border-bottom: 1px solid var(--moni-tooltip-border-color);
+      border-left: 1px solid var(--moni-tooltip-border-color);
+      left: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
+    }
+  }
 }
 
 .moni-tooltip--transition-enter-from, .moni-tooltip--transition-leave-to {

@@ -1,11 +1,16 @@
 import type { UseFloatingOptions } from '@floating-ui/vue'
 
-export type MoniTooltipPlacement = 'top' | 'bottom' | 'left' | 'right'
+export type MoniToolTipSide = 'top' | 'bottom' | 'left' | 'right'
+export type MoniToolAlignment = 'start' | 'end'
+export type MoniToolAlignedPlacement = `${MoniToolTipSide}-${MoniToolAlignment}`
+
+export type MoniTooltipPlacement = MoniToolTipSide | MoniToolAlignedPlacement
 export type MoniTooltipTrigger = 'click' | 'hover'
 
 export interface MoniTooltipProps {
   placement?: MoniTooltipPlacement
   trigger?: MoniTooltipTrigger
+  arrow?: boolean
   manual?: boolean
   offset?: number,
   keepInDisplay?: boolean

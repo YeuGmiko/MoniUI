@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { MoniTooltipInstance, MoniTooltipProps } from '@/components/MoniTooltip/types'
-import { computed, ref, watch, toRefs } from 'vue'
-import { autoUpdate, flip, offset, useFloating, arrow } from '@floating-ui/vue'
+import type { Middleware } from '@floating-ui/vue'
+import { autoUpdate, flip, offset, shift, arrow, useFloating } from '@floating-ui/vue'
+import { computed, ref, toRefs, watch } from 'vue'
 import { omit } from '@/utils/Object.ts'
 import useClickOutside from '@/hooks/useClickOutside'
 import { instantDebounce } from '@/utils/Function.ts'
@@ -9,19 +10,30 @@ import { instantDebounce } from '@/utils/Function.ts'
 const props = withDefaults(defineProps<MoniTooltipProps>(), {
   placement: 'top',
   trigger: 'hover',
+  arrow: true,
   manual: false,
   offset: 5,
   keepInDisplay: true,
   openDelay: 0,
-  closeDelay: 0
+  closeDelay: 0,
 })
 const emits = defineEmits<{ (e: 'visual-change', value: boolean): void }>()
-const { placement, trigger, manual, offset: floatingOffset, keepInDisplay, popperOptions, openDelay, closeDelay } = toRefs(props)
+const {
+  placement,
+  trigger,
+  arrow: hasArrow,
+  manual,
+  offset: floatingOffset,
+  keepInDisplay,
+  popperOptions,
+  openDelay,
+  closeDelay,
+} = toRefs(props)
 
-const tooltipNode = ref<HTMLElement | null>(null)
-const triggerNode = ref<HTMLElement | null>(null)
-const popperNode = ref<HTMLElement | null>(null)
-const popperArrowNode = ref<HTMLElement | null>(null)
+const tooltipNode = ref<HTMLElement | undefined>(undefined)
+const triggerNode = ref<HTMLElement | undefined>(undefined)
+const popperNode = ref<HTMLElement | undefined>(undefined)
+const popperArrowNode = ref<HTMLElement | undefined>(undefined)
 const flag = ref<boolean>(false)
 watch(flag, (newValue) => emits('visual-change', newValue))
 
@@ -41,20 +53,31 @@ const events = computed<Record<string, () => void>>(() => {
 })
 const outerEvents = computed(() => omit(events.value, ['mouseenter', 'click']))
 const triggerEvents = computed(() => omit(events.value, ['mouseleave']))
-useClickOutside(tooltipNode, () => !manual.value && trigger.value === 'click',() => updateFlag(false))
+const popperEvents = computed(() => omit(events.value, ['click']))
+useClickOutside(
+  tooltipNode,
+  () => !manual.value && trigger.value === 'click',
+  () => updateFlag(false),
+)
 
-const { floatingStyles } = useFloating(triggerNode, popperNode, {
+const middleware = computed<Middleware[]>(() => {
+  const middleware: Middleware[] = [offset(floatingOffset.value)]
+  if (keepInDisplay.value) middleware.push(flip(), shift())
+  if (hasArrow.value) middleware.push(arrow({ element: popperArrowNode }))
+  return middleware
+})
+const { floatingStyles, middlewareData, placement: floatingPlacement } = useFloating(triggerNode, popperNode, {
   placement,
-  middleware: [offset(floatingOffset.value), keepInDisplay.value ? flip() : undefined],
+  middleware,
   whileElementsMounted: autoUpdate,
-  ...popperOptions.value
+  ...popperOptions.value,
 })
 
 function _updateFlag(bool: boolean) {
   flag.value = bool
 }
 function updateFlag(bool: boolean) {
-  instantDebounce(_updateFlag, () => bool ? openDelay.value : closeDelay.value, bool)
+  instantDebounce(_updateFlag, () => (bool ? openDelay.value : closeDelay.value), bool)
 }
 
 defineExpose<MoniTooltipInstance>({
@@ -64,13 +87,21 @@ defineExpose<MoniTooltipInstance>({
 </script>
 
 <template>
-  <div class="moni-tooltip" ref="tooltipNode" v-on="outerEvents">
-    <div class="moni-tooltip__trigger" ref="triggerNode" v-on="triggerEvents">
+  <div class="moni-tooltip" ref="tooltipNode" v-on.prevent="outerEvents">
+    <div class="moni-tooltip__trigger" ref="triggerNode" v-on.prevent="triggerEvents">
       <slot name="trigger"></slot>
     </div>
     <Transition name="moni-tooltip--transition">
-      <div class="moni-tooltip__popper" ref="popperNode" :style="floatingStyles" v-if="flag">
-        <slot name="default"></slot>
+      <div class="moni-tooltip__popper__wrapper"  v-if="flag">
+        <div class="moni-tooltip__popper" ref="popperNode" :style="floatingStyles" v-on.prevent="popperEvents">
+          <div class="moni-tooltip__popper-arrow" v-if="hasArrow" :data-popper-placement="`${floatingPlacement}`" ref="popperArrowNode"
+               :style="{
+                  left: `${middlewareData.arrow?.x || 0}px`,
+                  top: `${middlewareData.arrow?.y || 0}px`
+                }"
+          ></div>
+          <slot name="default"></slot>
+        </div>
       </div>
     </Transition>
   </div>
