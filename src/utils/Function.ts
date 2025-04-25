@@ -1,6 +1,6 @@
 const debounceMap: WeakMap<object, number> = new WeakMap()
 
-type DebounceFn = () => void
+type DebounceFn = (...args: any) => void
 type DebounceTimeGetter = () => number
 
 /**
@@ -10,10 +10,10 @@ type DebounceTimeGetter = () => number
  * @param waitTime 返回一个防抖时间的函数，返回值的单位为毫秒ms
  * @param args 传递给回调函数的参数
  */
-export function instantDebounce(callback: DebounceFn, waitTime: number| DebounceTimeGetter, ...args: never[]) {
+export function instantDebounce(callback: DebounceFn, waitTime: number | DebounceTimeGetter, ...args: any[]) {
   let timer = debounceMap.get(callback)
   clearTimeout(timer)
-  timer = setTimeout(callback.bind(this, ...args), typeof waitTime === 'number' ? waitTime : waitTime())
+  timer = setTimeout(callback.bind(null, ...args), typeof waitTime === 'number' ? waitTime : waitTime())
   debounceMap.set(callback, timer)
 }
 /**
@@ -28,6 +28,6 @@ export function debounce(callback: DebounceFn, waitTime: number | DebounceTimeGe
   let timer: number | undefined
   return function() {
     clearTimeout(timer)
-    timer = setTimeout(callback.bind(this, ...args), typeof waitTime === 'number' ? waitTime : waitTime())
+    timer = setTimeout(callback.bind(null, ...args), typeof waitTime === 'number' ? waitTime : waitTime())
   }
 }
