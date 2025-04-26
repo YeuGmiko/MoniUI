@@ -49,4 +49,4 @@ onMounted(() => {
 </div>
 </template>
 
-<style scoped></style>
+<style src="./style.scss"></style>

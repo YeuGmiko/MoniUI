@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MoniAlertProps, MoniAlertExpose } from './types'
 import { computed, ref, useSlots } from 'vue'
-import MoniIcon from '@/components/MoniIcon/MoniIcon.vue'
+import MoniIcon from '@/components/common/MoniIcon/MoniIcon.vue'
 import { IconRecord, ThemeColor } from './constants.ts'
 
 const { type, effect } = withDefaults(defineProps<MoniAlertProps>(), {
@@ -44,6 +44,4 @@ defineExpose<MoniAlertExpose>({
   </Transition>
 </template>
 
-<style scoped>
-
-</style>
+<style src="./style.scss"></style>

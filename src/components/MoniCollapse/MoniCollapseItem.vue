@@ -9,8 +9,8 @@ export default defineComponent({
 import type { CollapseContext, MoniCollapseItemProps } from './types'
 import { inject, computed } from 'vue'
 import { collapseContextKey } from '@/components/MoniCollapse/constants.ts'
-import TransitionHeight from '@/components/TransitionHeight/TransitionHeight.vue'
-import MoniIcon from '@/components/MoniIcon/MoniIcon.vue'
+import TransitionHeight from '@/components/common/TransitionHeight.vue'
+import MoniIcon from '@/components/common/MoniIcon/MoniIcon.vue'
 
 const { name, disabled, title } = defineProps<MoniCollapseItemProps>()
 const { activeNames, handleItemClick } = inject<CollapseContext>(collapseContextKey) ?? {}

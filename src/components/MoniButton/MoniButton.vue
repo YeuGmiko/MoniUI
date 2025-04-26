@@ -9,7 +9,7 @@ export default defineComponent({
 <script setup lang="ts">
 import type { ButtonInstance, ButtonProps } from './types'
 import { ref } from 'vue'
-import MoniIcon from '@/components/MoniIcon/MoniIcon.vue'
+import MoniIcon from '@/components/common/MoniIcon/MoniIcon.vue'
 
 withDefaults(defineProps<ButtonProps>(), {
   type: 'default',
@@ -55,3 +55,5 @@ defineExpose<ButtonInstance>({
     </span>
   </button>
 </template>
+
+<style src="./style.scss"></style>
