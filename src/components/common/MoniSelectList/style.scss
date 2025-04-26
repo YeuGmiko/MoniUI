@@ -1,0 +1,29 @@
+.moni-select-list__inner {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  user-select: none;
+
+  .moni-select-list__item {
+    padding: 5px 10px;
+    box-sizing: border-box;
+    height: 30px;
+    cursor: pointer;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    &.active {
+      color: var(--moni-color-primary);
+    }
+
+    &.disabled {
+      color: var(--moni-text-color-disabled);
+      cursor: not-allowed;
+    }
+
+    &:hover {
+      background-color: var(--moni-fill-color-light);
+    }
+  }
+}
