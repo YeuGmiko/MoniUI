@@ -11,11 +11,14 @@ export interface MoniTooltipProps {
   placement?: MoniTooltipPlacement
   trigger?: MoniTooltipTrigger
   arrow?: boolean
+  arrowWidth?: number
   manual?: boolean
   offset?: number,
   keepInDisplay?: boolean
   openDelay?: number
   closeDelay?: number
+  paddingX?: number
+  paddingY?: number
   popperOptions?: Omit<UseFloatingOptions, 'placement' | 'middleware' | 'whileElementsMounted'>
 }
 
