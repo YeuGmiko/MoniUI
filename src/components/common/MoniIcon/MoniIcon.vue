@@ -7,8 +7,8 @@ export default defineComponent({
 </script>
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import type { IconProps } from '@/components/MoniIcon/types'
-import { omit } from '@/utils/Object';
+import type { IconProps } from '@/components/common/MoniIcon/types'
+import { omit } from '@/utils/Object.ts';
 import { computed } from 'vue'
 
 const props = withDefaults(defineProps<IconProps>(), {
@@ -26,3 +26,5 @@ const customStyles = computed(() => {
   <Icon v-bind="iconifyProps"></Icon>
 </i>
 </template>
+
+<style src="./style.scss"></style>
