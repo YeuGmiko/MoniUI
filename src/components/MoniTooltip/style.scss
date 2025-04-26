@@ -1,4 +1,3 @@
-
 .moni-tooltip {
   --moni-tooltip-bg-color: var(--moni-bg-color-overlay);
   --moni-tooltip-font-size: var(--moni-font-size-base);
@@ -30,11 +29,9 @@
   }
   .moni-tooltip__popper-arrow {
     position: absolute;
-    top: var(--moni-tooltip-arrow-top);
-    left: var(--moni-tooltip-arrow-left);
     visibility: hidden;
 
-    & .moni-tooltip-popper-arrow__inner {
+    &::before {
       position: absolute;
       visibility: visible;
       content: '';
@@ -44,30 +41,53 @@
       box-sizing: border-box;
       background-color: var(--moni-tooltip-bg-color);
     }
+    /* positions */
+    &[data-popper-placement^='top'] {
+      bottom: var(--moni-tooltip-arrow-position-y);
+      left: var(--moni-tooltip-arrow-position-x);
 
-    &[data-popper-placement^='top'] .moni-tooltip-popper-arrow__inner {
-      border-bottom: 1px solid var(--moni-tooltip-border-color);
-      border-right: 1px solid var(--moni-tooltip-border-color);
-      top: calc(var(--moni-tooltip-arrow-width) / 2);
-      transform: rotateZ(45deg) translateY(1px);
+      &::before {
+        border-bottom: 1px solid var(--moni-tooltip-border-color);
+        border-right: 1px solid var(--moni-tooltip-border-color);
+        bottom: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
+        transform: rotateZ(45deg) translateY(1px);
+      }
     }
-    &[data-popper-placement^='bottom'] .moni-tooltip-popper-arrow__inner {
-      border-top: 1px solid var(--moni-tooltip-border-color);
-      border-left: 1px solid var(--moni-tooltip-border-color);
-      top: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
-      transform: rotateZ(45deg) translateY(-1px);
+
+    &[data-popper-placement^='bottom'] {
+      top: var(--moni-tooltip-arrow-position-y);
+      left: var(--moni-tooltip-arrow-position-x);
+
+      &::before {
+        border-top: 1px solid var(--moni-tooltip-border-color);
+        border-left: 1px solid var(--moni-tooltip-border-color);
+        top: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
+        transform: rotateZ(45deg) translateY(-1px);
+      }
     }
-    &[data-popper-placement^='left'] .moni-tooltip-popper-arrow__inner {
-      border-top: 1px solid var(--moni-tooltip-border-color);
-      border-right: 1px solid var(--moni-tooltip-border-color);
-      left: calc(var(--moni-tooltip-arrow-width) / 2);
-      transform: rotateZ(45deg) translateX(1px);
+
+    &[data-popper-placement^='left'] {
+      top: var(--moni-tooltip-arrow-position-y);
+      right: var(--moni-tooltip-arrow-position-x);
+
+      &::before {
+        border-top: 1px solid var(--moni-tooltip-border-color);
+        border-right: 1px solid var(--moni-tooltip-border-color);
+        left: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
+        transform: rotateZ(45deg) translateX(1px);
+      }
     }
-    &[data-popper-placement^='right'] .moni-tooltip-popper-arrow__inner {
-      border-bottom: 1px solid var(--moni-tooltip-border-color);
-      border-left: 1px solid var(--moni-tooltip-border-color);
-      left: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
-      transform: rotateZ(45deg) translateX(-1px);
+
+    &[data-popper-placement^='right'] {
+      top: var(--moni-tooltip-arrow-position-y);
+      left: var(--moni-tooltip-arrow-position-x);
+
+      &::before {
+        border-bottom: 1px solid var(--moni-tooltip-border-color);
+        border-left: 1px solid var(--moni-tooltip-border-color);
+        left: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
+        transform: rotateZ(45deg) translateX(-1px);
+      }
     }
   }
 }

@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<MoniTooltipProps>(), {
   placement: 'top',
   trigger: 'hover',
   arrow: true,
-  arrowWidth: 10,
+  arrowWidth: 8,
   manual: false,
   offset: 5,
   keepInDisplay: true,
@@ -107,9 +107,7 @@ const arrowBindStyles = computed(() => ({
     <Transition name="moni-tooltip--transition">
       <div class="moni-tooltip__popper__wrapper"  v-if="flag">
         <div class="moni-tooltip__popper" ref="popperNode" :style="floatingStyles" v-on.prevent="popperEvents">
-          <div class="moni-tooltip__popper-arrow" v-if="hasArrow" :data-popper-placement="`${floatingPlacement}`" ref="popperArrowNode">
-            <span class="moni-tooltip-popper-arrow__inner"></span>
-          </div>
+          <div class="moni-tooltip__popper-arrow" v-if="hasArrow" :data-popper-placement="`${floatingPlacement}`" ref="popperArrowNode"></div>
           <slot name="default"></slot>
         </div>
       </div>
@@ -117,11 +115,12 @@ const arrowBindStyles = computed(() => ({
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style src="./style.scss"></style>
+<style lang="scss">
 .moni-tooltip {
   --moni-tooltip-popper-padding: v-bind(arrowBindStyles.popperPadding);
   --moni-tooltip-arrow-width: v-bind(arrowBindStyles.arrowWidth);
-  --moni-tooltip-arrow-top: v-bind(arrowBindStyles.arrowTop);
-  --moni-tooltip-arrow-left: v-bind(arrowBindStyles.arrowLeft);
+  --moni-tooltip-arrow-position-y: v-bind(arrowBindStyles.arrowTop);
+  --moni-tooltip-arrow-position-x: v-bind(arrowBindStyles.arrowLeft);
 }
 </style>
