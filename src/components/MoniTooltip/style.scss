@@ -1,11 +1,10 @@
+
 .moni-tooltip {
   --moni-tooltip-bg-color: var(--moni-bg-color-overlay);
   --moni-tooltip-font-size: var(--moni-font-size-base);
   --moni-tooltip-border-color: var(--moni-border-color);
-  --moni-tooltip-padding: 12px;
   --moni-tooltip-border-radius: var(--moni-border-radius-base);
   --moni-tooltip-z-index: 1000;
-  --moni-tooltip-arrow-width: 8px;
 
   position: relative;
   display: inline-block;
@@ -16,7 +15,7 @@
 
   .moni-tooltip__popper {
     position: relative;
-    padding: var(--moni-tooltip-padding);
+    padding: var(--moni-tooltip-popper-padding);
     box-sizing: border-box;
     display: inline-block;
     width: max-content;
@@ -31,9 +30,11 @@
   }
   .moni-tooltip__popper-arrow {
     position: absolute;
+    top: var(--moni-tooltip-arrow-top);
+    left: var(--moni-tooltip-arrow-left);
     visibility: hidden;
 
-    &:before {
+    & .moni-tooltip-popper-arrow__inner {
       position: absolute;
       visibility: visible;
       content: '';
@@ -42,28 +43,31 @@
       height: var(--moni-tooltip-arrow-width);
       box-sizing: border-box;
       background-color: var(--moni-tooltip-bg-color);
-      transform: rotateZ(45deg);
     }
 
-    &[data-popper-placement^='top']:before {
+    &[data-popper-placement^='top'] .moni-tooltip-popper-arrow__inner {
       border-bottom: 1px solid var(--moni-tooltip-border-color);
       border-right: 1px solid var(--moni-tooltip-border-color);
       top: calc(var(--moni-tooltip-arrow-width) / 2);
+      transform: rotateZ(45deg) translateY(1px);
     }
-    &[data-popper-placement^='bottom']:before {
+    &[data-popper-placement^='bottom'] .moni-tooltip-popper-arrow__inner {
       border-top: 1px solid var(--moni-tooltip-border-color);
       border-left: 1px solid var(--moni-tooltip-border-color);
       top: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
+      transform: rotateZ(45deg) translateY(-1px);
     }
-    &[data-popper-placement^='left']:before {
+    &[data-popper-placement^='left'] .moni-tooltip-popper-arrow__inner {
       border-top: 1px solid var(--moni-tooltip-border-color);
       border-right: 1px solid var(--moni-tooltip-border-color);
       left: calc(var(--moni-tooltip-arrow-width) / 2);
+      transform: rotateZ(45deg) translateX(1px);
     }
-    &[data-popper-placement^='right']:before {
+    &[data-popper-placement^='right'] .moni-tooltip-popper-arrow__inner {
       border-bottom: 1px solid var(--moni-tooltip-border-color);
       border-left: 1px solid var(--moni-tooltip-border-color);
       left: calc(-1 * var(--moni-tooltip-arrow-width) / 2);
+      transform: rotateZ(45deg) translateX(-1px);
     }
   }
 }
